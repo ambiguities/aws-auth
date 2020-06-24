@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#
+# Usage:     
+# $0 profile_name mfa_code
+#
+
+MFA_ARN=""
+
+if [[ "$1" == "" || "$2" == "" ]]; then exit 1; fi
+
+JSON_RESPONSE="$(aws sts get-session-token --serial-number $MFA_ARN --token-code $2)"
+
+if [ "$JSON_RESPONSE" == "" ]; then echo ""; exit 1; fi
+
+AWS_ACCESS_KEY_ID="$(sed -e 's/^"//' -e 's/"$//' <<< "$(echo $JSON_RESPONSE | jq .Credentials.AccessKeyId)")"
+AWS_SECRET_ACCESS_KEY="$(sed -e 's/^"//' -e 's/"$//' <<< "$(echo $JSON_RESPONSE | jq .Credentials.SecretAccessKey)")"
+AWS_SESSION_TOKEN="$(sed -e 's/^"//' -e 's/"$//' <<< "$(echo $JSON_RESPONSE | jq .Credentials.SessionToken)")"
+
+$HOME/bin/aws-profile $1 $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_SESSION_TOKEN

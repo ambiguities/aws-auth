@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#
+# Usage:     
+# $0 profile_name access_key_id secret_access_key session_token
+#
+
+CREDENTIAL_FILE="$HOME/.aws/credentials"
+
+if [[ "$1" == "" || "$2" == "" || "$3" == "" || "$4" == "" ]]; then exit 1; fi
+
+NEW_CREDENTIALS="[$1]\naws_access_key_id = $2\naws_secret_access_key = $3\naws_session_token = $4"
+
+if [ "$(grep "^\[$1\]$" $CREDENTIAL_FILE)" != "" ]; then
+
+  sed -i -e "/^\[$1\]$/ {
+    N; /\n.*$/ { 
+      N; /\n.*$/ { 
+        N; /\n.*$/ { 
+          s/^.*\n.*\n.*\n.*$/$( echo $NEW_CREDENTIALS | sed 's/\//\\\//g' )/m
+        }
+      }
+    }
+  }" $CREDENTIAL_FILE
+
+else
+
+  if [ "$(tail -1 $CREDENTIAL_FILE)" != "\n" ]; then echo -e "" >> $CREDENTIAL_FILE; fi
+
+  echo -e $NEW_CREDENTIALS >> $CREDENTIAL_FILE
+
+fi
