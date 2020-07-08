@@ -2,19 +2,21 @@
 
 #
 # Usage:     
-# $0 profile_name mfa_code
+# $0 profile_name mfa_serial mfa_code
 #
 
-MFA_ARN=""
+[[ "$#" -lt 3 ]] && exit 1
 
-if [[ "$1" == "" || "$2" == "" ]]; then exit 1; fi
+PROFILE_TO="$1" && shift
+MFA_SERIAL="$1" && shift
+MFA_CODE="$1" && shift
 
-JSON_RESPONSE="$(aws sts get-session-token --serial-number $MFA_ARN --token-code $2)"
+JSON_RESPONSE="$( aws sts get-session-token --serial-number $MFA_SERIAL --token-code $MFA_CODE )"
 
-if [ "$JSON_RESPONSE" == "" ]; then echo ""; exit 1; fi
+[[ "$JSON_RESPONSE" == "" ]] && echo "" && exit 1
 
-AWS_ACCESS_KEY_ID="$(sed -e 's/^"//' -e 's/"$//' <<< "$(echo $JSON_RESPONSE | jq .Credentials.AccessKeyId)")"
-AWS_SECRET_ACCESS_KEY="$(sed -e 's/^"//' -e 's/"$//' <<< "$(echo $JSON_RESPONSE | jq .Credentials.SecretAccessKey)")"
-AWS_SESSION_TOKEN="$(sed -e 's/^"//' -e 's/"$//' <<< "$(echo $JSON_RESPONSE | jq .Credentials.SessionToken)")"
+ACCESS_KEY_ID="$( sed -e 's/^"//' -e 's/"$//' <<< "$( echo $JSON_RESPONSE | jq .Credentials.AccessKeyId )" )"
+SECRET_ACCESS_KEY="$( sed -e 's/^"//' -e 's/"$//' <<< "$( echo $JSON_RESPONSE | jq .Credentials.SecretAccessKey )" )"
+SESSION_TOKEN="$( sed -e 's/^"//' -e 's/"$//' <<< "$( echo $JSON_RESPONSE | jq .Credentials.SessionToken )" )"
 
-$HOME/bin/aws-profile $1 $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_SESSION_TOKEN
+$HOME/bin/aws-profile $PROFILE_TO $ACCESS_KEY_ID $SECRET_ACCESS_KEY $SESSION_TOKEN $@
