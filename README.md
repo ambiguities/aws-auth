@@ -27,7 +27,7 @@ aws-auth-become $profile_from $profile_to $role_arn [$session_name]
 
 ```sh
 # Usage:
-aws-auth-mfa $new_profile $mfa_code
+aws-auth-mfa $new_profile $mfa_serial $mfa_code
 ```
 
 #### `aws-profile`
