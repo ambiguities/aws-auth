@@ -22,12 +22,12 @@ aws-auth-become $profile_from $profile_to $role_arn [$session_name]
 #### `aws-auth-mfa`
 
 - prerequisites:
-  - a `[default]` profile in `$HOME/.aws/credentials`
-  - the profile has an active access key pair from the mfa user
+  - an active profile in `$HOME/.aws/credentials`
+  - the profile has an active access key pair for the mfa user
 
 ```sh
 # Usage:
-aws-auth-mfa $new_profile $mfa_serial $mfa_code
+aws-auth-mfa $profile_from $profile_to $mfa_serial $mfa_code
 ```
 
 #### `aws-profile`
@@ -45,7 +45,7 @@ aws-profile $profile_name $access_key_id $secret_access_key $session_token [--pr
 ```sh
 # usage: aws-auth-mfa-username target_profile mfa_code
 aws-auth-mfa-username () {
-  aws-auth-mfa $1 arn:aws:iam::account_number:mfa/username ${@:2}
+  aws-auth-mfa base_profile $1 arn:aws:iam::account_number:mfa/username ${@:2}
 }
 ```
 

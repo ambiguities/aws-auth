@@ -2,16 +2,17 @@
 
 #
 # Usage:     
-# $0 profile_name mfa_serial mfa_code
+# $0 profile_from profile_to mfa_serial mfa_code
 #
 
 [[ "$#" -lt 3 ]] && exit 1
 
+PROFILE_FROM="$1" && shift
 PROFILE_TO="$1" && shift
 MFA_SERIAL="$1" && shift
 MFA_CODE="$1" && shift
 
-JSON_RESPONSE="$( aws sts get-session-token --serial-number $MFA_SERIAL --token-code $MFA_CODE )"
+JSON_RESPONSE="$( aws --profile $PROFILE_FROM sts get-session-token --serial-number $MFA_SERIAL --token-code $MFA_CODE )"
 
 [[ "$JSON_RESPONSE" == "" ]] && echo "" && exit 1
 

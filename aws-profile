@@ -5,7 +5,11 @@
 # $0 profile_name access_key_id secret_access_key session_token
 #
 
-CREDENTIAL_FILE="$HOME/.aws/credentials"
+if [ "$AWS_SHARED_CREDENTIALS_FILE" != "" ]; then
+    CREDENTIAL_FILE="$AWS_SHARED_CREDENTIALS_FILE"
+else
+    CREDENTIAL_FILE="$HOME/.aws/credentials"
+fi
 
 [[ "$#" -lt 4 ]] && exit 1
 
