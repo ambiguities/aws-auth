@@ -1,0 +1,30 @@
+UPDATE()                                                                UPDATE()
+
+
+
+NAME
+       update -
+
+DESCRIPTION
+       This command is used to update existing profiles in the AWS credentials file.
+
+SYNOPSIS
+            update
+            target_profile
+            profile_key
+            profile_secret
+            [profile_session]
+
+OPTIONS
+
+       target_profile
+          The name of the profile that is to be updated.
+
+       profile_key
+          The access key to be associated with the target profile.
+
+       profile_secret
+          The access key secret to be associated with the target profile.
+
+       profile_session
+          The session token to be associated with the target profile.

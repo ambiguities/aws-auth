@@ -1,0 +1,20 @@
+PROFILE()                                                              PROFILE()
+
+
+
+NAME
+       profile -
+
+DESCRIPTION
+       This command allows users to manipulate the profiles located in the AWS 
+       credentials file. Please see the available help documentation for each 
+       sub-command.
+
+AVAILABLE COMMANDS
+       o add
+
+       o delete
+
+       o update
+
+       o view

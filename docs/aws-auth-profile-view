@@ -1,0 +1,17 @@
+VIEW()                                                                    VIEW()
+
+
+
+NAME
+       view -
+
+DESCRIPTION
+       This commands prints a profile to stdout.
+
+SYNOPSIS
+            target_profile
+
+OPTIONS
+
+       target_profile
+          The name of the profile that is to be output.

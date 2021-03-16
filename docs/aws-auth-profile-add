@@ -1,0 +1,30 @@
+ADD()                                                                      ADD()
+
+
+
+NAME
+       add -
+
+DESCRIPTION
+       This command is used to add a new profile to the AWS credentials file.
+
+SYNOPSIS
+            add
+            target_profile
+            profile_key
+            profile_secret
+            [profile_session]
+
+OPTIONS
+
+       target_profile
+          The name of the profile that is to be added.
+
+       profile_key
+          The access key to be associated with the target profile.
+
+       profile_secret
+          The access key secret to be associated with the target profile.
+
+       profile_session
+          The session token to be associated with the target profile.

@@ -1,0 +1,33 @@
+MFA()                                                                      MFA()
+
+
+
+NAME
+       mfa -
+
+DESCRIPTION
+       This command allows users to create an mfa authorized session under a 
+       target profile using a source profile with a valid MFA device associated.
+
+SYNOPSIS
+            mfa
+            source_profile
+            target_profile
+            mfa_serial
+            token_code
+
+OPTIONS
+       source_profile
+          The source profile associated with the IAM user requesting an mfa 
+          authorized session.
+
+       target_profile
+          The target profile that the mfa authorized session is to be 
+          associated with.
+
+       mfa_serial
+          The identification number of the MFA device that is associated with
+          the source profile's IAM user.
+
+       token_code
+          The value provided by the MFA device.

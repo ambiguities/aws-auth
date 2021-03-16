@@ -1,0 +1,47 @@
+ASSUME()                                                                ASSUME()
+
+
+
+NAME
+       assume -
+
+DESCRIPTION
+       This command allows users to create an assume a role in an AWS account 
+       provided that the profile being used to assume that role has the proper 
+       IAM policies allowing the role to be assumed.
+
+SYNOPSIS
+            assume
+            source_profile
+            target_profile
+            role_arn
+            [session_name]
+
+OPTIONS
+       source_profile
+          The source profile associated with the IAM user requesting an mfa 
+          authorized session.
+
+       target_profile
+          The target profile that the mfa authorized session is to be 
+          associated with.
+
+       role_arn
+          The Amazon Resource Name (ARN) of the role to assume.
+
+       session_name
+          An identifier for the assumed role session.
+
+          Use  the  role  session name to uniquely identify a session when the
+          same role is assumed by different principals or for  different  rea-
+          sons.  In  cross-account scenarios, the role session name is visible
+          to, and can be logged by the account that owns the  role.  The  role
+          session  name is also used in the ARN of the assumed role principal.
+          This means that subsequent cross-account API requests that  use  the
+          temporary  security credentials will expose the role session name to
+          the external account in their AWS CloudTrail logs.
+
+          The regex used to validate this parameter is a string of  characters
+          consisting  of upper- and lower-case alphanumeric characters with no
+          spaces. You can also include underscores or  any  of  the  following
+          characters: =,.@-

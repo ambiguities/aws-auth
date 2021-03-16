@@ -1,0 +1,36 @@
+#/usr/bin/env bash
+
+assume_role() {
+  echo "assume"
+}
+
+authorize_mfa() {
+  echo "mfa"
+}
+
+update_profile() {
+  echo "profile"
+}
+
+heredoc() {
+  echo "documentation"
+}
+
+if [ -z "$1" ]; then
+  echo "No commands passed"
+  heredoc -1 $@
+  exit 2
+elif [ "$1" == "assume" ]; then
+  assume_role ${@:2}
+elif [ "$1" == "mfa" ]; then
+  authorize_mfa ${@:2}
+elif [ "$1" == "profile" ]; then
+  update_profile ${@:2}
+elif [ "$1" == "help" ]; then
+  heredoc $@
+  exit 0
+else
+  echo "Invalid option passed"
+  heredoc -1 $@
+  exit 2
+fi

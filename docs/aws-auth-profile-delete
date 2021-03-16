@@ -1,0 +1,18 @@
+DELETE()                                                                DELETE()
+
+
+
+NAME
+       delete -
+
+DESCRIPTION
+       This command allows users to remove profiles from the AWS credentials 
+       file.
+
+SYNOPSIS
+            target_profile
+
+OPTIONS
+
+       target_profile
+          The name of the profile that is to be deleted.
